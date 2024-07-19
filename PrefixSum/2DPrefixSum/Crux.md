@@ -7,25 +7,31 @@
 ### Definition
 
 The 2D prefix sum for a matrix is defined as:
-\[
-\texttt{prefix}[a][b] = \sum*{i=1}^{a} \sum*{j=1}^{b} \texttt{arr}[i][j]
-\]
+
+```
+prefix[a][b] = sum(arr[i][j] for i in range(1, a+1) for j in range(1, b+1))
+```
+
 This represents the sum of all elements from the top-left corner to the \((a, b)\) cell.
 
 ### Calculation
 
 For each cell \((i, j)\) in the prefix sum matrix, it can be calculated using:
-\[
-\texttt{prefix}[i][j] = \texttt{prefix}[i-1][j] + \texttt{prefix}[i][j-1] - \texttt{prefix}[i-1][j-1] + \texttt{arr}[i][j]
-\]
+
+```
+prefix[i][j] = prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1] + arr[i][j]
+```
+
 This formula ensures that each element in the original matrix is counted exactly once.
 
 ### Querying Submatrix Sums
 
 To find the sum of a submatrix from \((a, b)\) to \((A, B)\), use the relation:
-\[
-\sum\_{i=a}^{A} \sum{j=b}^{B} \texttt{arr}[i][j] = \texttt{prefix}[A][B] - \texttt{prefix}[a-1][B] - \texttt{prefix}[A][b-1] + \texttt{prefix}[a-1][b-1]
-\]
+
+```
+sum(arr[i][j] for i in range(a, A+1) for j in range(b, B+1)) = prefix[A][B] - prefix[a-1][B] - prefix[A][b-1] + prefix[a-1][b-1]
+```
+
 Here, we leverage the precomputed prefix sums to quickly calculate the desired submatrix sum.
 
 ## Use Cases
